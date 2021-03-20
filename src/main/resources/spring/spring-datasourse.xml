@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans	xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:aop="http://www.springframework.org/schema/aop"
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans
+	    http://www.springframework.org/schema/beans/spring-beans.xsd
+	    http://www.springframework.org/schema/context
+	    http://www.springframework.org/schema/context/spring-context.xsd
+	    http://www.springframework.org/schema/aop
+	    http://www.springframework.org/schema/aop/spring-aop.xsd
+	    http://www.springframework.org/schema/tx
+	    http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<description>数据源、事务管理</description>
+	
+    <!-- base dataSource -->
+    <bean name="baseDataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+        <property name="initialSize" value="5" />
+        <property name="maxActive" value="100" />
+        <property name="minIdle" value="10" />
+        <property name="maxWait" value="60000" />
+        <property name="validationQuery" value="SELECT 'x'" />
+        <property name="testOnBorrow" value="true" />
+        <property name="testOnReturn" value="true" />
+        <property name="testWhileIdle" value="true" />
+        <property name="timeBetweenEvictionRunsMillis" value="60000" />
+        <property name="minEvictableIdleTimeMillis" value="300000" />
+        <property name="removeAbandoned" value="true" />
+        <property name="removeAbandonedTimeout" value="1800" />
+        <property name="logAbandoned" value="true" />
+        <property name="filters" value="mergeStat" />
+    </bean>
+
+    <!-- 主库 -->
+    <bean name="master-dataSource" parent="baseDataSource" init-method="init">
+        <property name="url" value="${master_driverUrl}" />
+        <property name="username" value="${master_username}" />
+        <property name="password" value="${master_password}" />
+    </bean>
+
+    <!--主从库选择-->
+    <bean id="dynamicDataSource" class="com.bid.common.datasource.DynamicDataSource">
+        <property name="dataSourcesMap">    
+              <map key-type="java.lang.String">
+              	 <!-- 通过key-value的形式来关联数据源 -->    
+                 <entry key="master" value-ref="master-dataSource"/>    
+              </map>
+        </property>  
+        <!-- 默认数据源 -->
+        <property name="defaultDataSourceName" value="master"/>
+    </bean>
+    
+    <!-- 设置jdbcTemplate -->
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dynamicDataSource" />
+	</bean>
+
+    <!-- 事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dynamicDataSource"></property>
+    </bean>
+
+	<!-- 1、注解方式使用事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager" order="300"/>
+	
+    <!-- 2、拦截方式事务管理 -->
+    <tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+			<!-- find,select,count开头的方法,开启只读,提高数据库访问性能   -->
+            <tx:method name="find*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="get*" propagation="SUPPORTS" read-only="true"/>
+			<!-- 对insert,update,delete 开头的方法进行事务管理,只要有异常就回滚  -->
+            <tx:method name="add*" propagation="REQUIRED"/>
+            <tx:method name="save*" propagation="REQUIRED"/>
+            <tx:method name="update*" propagation="REQUIRED"/>
+            <tx:method name="edit*" propagation="REQUIRED"/>
+            <tx:method name="delete*" propagation="REQUIRED"/>
+        </tx:attributes>
+    </tx:advice>
+    <!-- 事务管理切面配置 -->
+    <aop:config>
+        <aop:advisor advice-ref="transactionAdvice" pointcut="execution(* com.bid.**.service..*.*(..))"/>
+    </aop:config>
+    
+</beans>

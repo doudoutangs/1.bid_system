@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans  xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:aop="http://www.springframework.org/schema/aop"
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans
+	    http://www.springframework.org/schema/beans/spring-beans.xsd
+	    http://www.springframework.org/schema/context
+	    http://www.springframework.org/schema/context/spring-context.xsd
+	    http://www.springframework.org/schema/aop
+	    http://www.springframework.org/schema/aop/spring-aop.xsd
+	    http://www.springframework.org/schema/tx
+	    http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<description>spring整合mybatis</description>
+	
+    <!-- sqlSessionFactory会话工厂 (mybatis-spring项目提供整合类) -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 数据库连接池 -->
+        <property name="dataSource" ref="dynamicDataSource"></property>
+        <!-- 自动扫描mapping.xml文件,省掉Configuration.xml里的手工配置 -->
+        <property name="mapperLocations" value="classpath*:sqlMap/**/*.xml"></property>
+        <!-- 加载mybatis的全局配置文件 -->
+        <property name="configLocation" value="classpath:spring/mybatisConfig.xml"></property>
+    </bean>
+
+    <!-- 扫描器 (MyBatis Mapper 动态实现)  -->
+    <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 扫描包路径，如果需要扫描多个包，中间使用半角号分隔	-->
+        <property name="basePackage" value="com.bid.**.mapper"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+    </bean>
+    
+    <!--扫描器（通用Mapper插件） -->
+	<bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
+	    <property name="basePackage" value="com.bid.**.mapper"/>
+	    <property name="properties">
+	        <value>
+	            mappers=tk.mybatis.mapper.common.Mapper
+	        </value>
+	    </property>
+	</bean>
+</beans>

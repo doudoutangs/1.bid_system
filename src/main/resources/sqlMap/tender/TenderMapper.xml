@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bid.tender.mapper.TenderMapper" >
+  <resultMap id="BaseResultMap" type="com.bid.tender.model.Tender" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="bad_id" property="badId" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="tender_date" property="tenderDate" jdbcType="VARCHAR" />
+    <result column="file_id" property="fileId" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="QueryResultMap" type="com.bid.tender.model.result.TenderVo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="bad_id" property="badId" jdbcType="VARCHAR" />
+    <result column="badTitle" property="badTitle" jdbcType="VARCHAR" />
+    <result column="badContent" property="badContent" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="tender_date" property="tenderDate" jdbcType="VARCHAR" />
+    <result column="file_id" property="fileId" jdbcType="VARCHAR" />
+    <result column="noticeStatus" property="noticeStatus" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, bad_id, content, user_id, tender_date, file_id, create_time, update_time
+  </sql>
+  <sql id="Query_Column_List" >
+    t.id, t.bad_id, t.content, t.user_id, t.tender_date, t.file_id, t.create_time, t.update_time,t.amount,
+    n.TITLE as badTitle ,n.content as badContent,n.status as noticeStatus
+  </sql>
+  <select id="findPageCondition" resultMap="QueryResultMap">
+    select
+    <include refid="Query_Column_List"/>
+    FROM b_tender t LEFT JOIN b_notice n
+    on t.BAD_ID=  n.id
+    <where>
+    <if test="condition.badId != null">
+      and t.bad_id ='${condition.badId}',
+    </if>
+    <if test="condition.userId != null">
+      and t.user_id ='${condition.userId}'
+    </if>
+    </where>
+  </select>
+  <select id="findByBadIdAndUserId" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List"/>
+    FROM b_tender t
+    where bad_id = #{badId,jdbcType=VARCHAR}
+    and user_id =  #{userId,jdbcType=VARCHAR}
+  </select>
+</mapper>

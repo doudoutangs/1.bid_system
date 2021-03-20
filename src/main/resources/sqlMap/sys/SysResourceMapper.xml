@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bid.sys.mapper.SysResourceMapper">
+    <resultMap id="BaseResultMap" type="com.bid.sys.model.SysResource">
+        <id column="resource_id" property="resourceId" jdbcType="VARCHAR"/>
+        <result column="resource_pid" property="resourcePid" jdbcType="VARCHAR"/>
+        <result column="resource_name" property="resourceName" jdbcType="VARCHAR"/>
+        <result column="resource_type" property="resourceType" jdbcType="VARCHAR"/>
+        <result column="perm_code" property="permCode" jdbcType="VARCHAR"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="icon" property="icon" jdbcType="VARCHAR"/>
+        <result column="resource_status" property="resourceStatus" jdbcType="VARCHAR"/>
+        <result column="resource_level" property="resourceLevel" jdbcType="VARCHAR"/>
+        <result column="resource_flag" property="resourceFlag" jdbcType="VARCHAR"/>
+        <result column="resource_seq" property="resourceSeq" jdbcType="INTEGER"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="field_1" property="field1" jdbcType="VARCHAR"/>
+        <result column="field_2" property="field2" jdbcType="VARCHAR"/>
+        <result column="field_3" property="field3" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="sysResourceVoResultMap" type="com.bid.sys.model.result.SysResourceVo" extends="BaseResultMap">
+        <result column="count_all_child" property="countAllChild" jdbcType="INTEGER"/>
+        <result column="count_menu_child" property="countMenuChild" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        resource_id, resource_pid, resource_name, resource_type, perm_code, url, icon, resource_status,
+        resource_level, resource_flag, resource_seq, description, field_1, field_2, field_3
+    </sql>
+    <sql id="Base_Column_List_Alias">
+        sr.resource_id, sr.resource_pid, sr.resource_name, sr.resource_type, sr.perm_code, sr.url, sr.icon, sr.resource_status,
+        sr.resource_level, sr.resource_flag, sr.resource_seq, sr.description, sr.field_1, sr.field_2, sr.field_3
+    </sql>
+
+    <!-- 查询子节点个数 -->
+    <select id="countChildByPid" resultType="java.lang.Integer" parameterType="java.lang.String">
+		select count(*)
+		from sys_resource
+		where resource_pid = #{resource_id,jdbcType=VARCHAR}
+	</select>
+
+    <!-- 通过角色Id获取拥有权限的资源Id -->
+    <select id="findResourceIdByRoleId" resultType="java.lang.String" parameterType="java.lang.String">
+		select sr.resource_id AS resourceId
+		from 
+			sys_role r
+			JOIN sys_role_resource srr ON r.role_id = srr.role_id 
+			JOIN sys_resource sr ON sr.resource_id = srr.resource_id
+		where r.role_id = #{roleId,jdbcType=VARCHAR} 
+	</select>
+
+    <!-- 通过角色Id获取拥有权限的资源编号(自定义) -->
+    <select id="findPermCodeListByRoleId" resultType="java.lang.String">
+        select sr.perm_code AS permCode
+        from
+        sys_role r
+        JOIN sys_role_resource srr ON r.role_id = srr.role_id
+        JOIN sys_resource sr ON sr.resource_id = srr.resource_id
+        where r.role_id = #{roleId,jdbcType=VARCHAR}
+        <if test="resourceStatus != null and resourceStatus != ''">
+            and sr.resource_status = #{resourceStatus,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <!-- 资源列表查询  -->
+    <select id="findResourceVo" resultMap="sysResourceVoResultMap" parameterType="java.lang.String">
+        SELECT COUNT(p_sr.resource_id) count_all_child ,t.*
+        FROM
+        (select COUNT(p_sr.resource_id) count_menu_child,
+        <include refid="Base_Column_List_Alias"/>
+        from sys_resource sr LEFT JOIN sys_resource p_sr ON p_sr.resource_pid = sr.resource_id and p_sr.resource_type =
+        '1'
+        <if test="resourceType != null">
+            where sr.resource_type = #{resourceType,jdbcType=VARCHAR}
+        </if>
+        GROUP BY sr.resource_id) t
+        LEFT JOIN sys_resource p_sr ON p_sr.resource_pid = t.resource_id
+        GROUP BY t.resource_id
+        order by t.resource_seq
+    </select>
+
+    <!-- 通过角色Id获取拥有权限的资源 -->
+    <select id="findResourceByRoleId" resultMap="sysResourceVoResultMap">
+        SELECT COUNT(p_sr.resource_id) count_all_child ,t.*
+        FROM
+        (select COUNT(p_sr.resource_id) count_menu_child,
+        <include refid="Base_Column_List_Alias"/>
+        from
+        sys_role r
+        JOIN sys_role_resource srr ON r.role_id = srr.role_id
+        JOIN sys_resource sr ON sr.resource_id = srr.resource_id
+        LEFT JOIN sys_resource p_sr ON p_sr.resource_pid = sr.resource_id
+        where r.role_id = #{roleId,jdbcType=VARCHAR}
+        <if test="resourceType != null">
+            and sr.resource_type = #{resourceType,jdbcType=VARCHAR}
+        </if>
+        GROUP BY sr.resource_id) t
+        LEFT JOIN sys_resource p_sr ON p_sr.resource_pid = t.resource_id
+        GROUP BY t.resource_id
+        order by t.resource_seq
+    </select>
+
+    <!-- 删除子资源 -->
+    <delete id="deleteChildByPid" parameterType="java.lang.String">
+	  delete from sys_resource
+	  where resource_pid = #{resourceId,jdbcType=VARCHAR}
+	</delete>
+
+</mapper>

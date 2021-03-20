@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans  xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:mvc="http://www.springframework.org/schema/mvc"
+		xmlns:aop="http://www.springframework.org/schema/aop"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans
+	    http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+	    http://www.springframework.org/schema/context
+	    http://www.springframework.org/schema/context/spring-context-4.1.xsd
+	    http://www.springframework.org/schema/mvc 
+	    http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
+	    http://www.springframework.org/schema/aop
+	    http://www.springframework.org/schema/aop/spring-aop-4.1.xsd"
+	    default-autowire="byName">
+
+    <!-- 注解支持 (可用在controller)-->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+
+	<!-- 自动扫描@Controller等 -->
+    <context:component-scan base-package="com.bid.common.scanner"/><!-- 系统核心 -->
+    <context:component-scan base-package="com.bid.**.controller"/>
+
+    <!-- 容器默认的DefaultServletHandler处理 所有静态内容与无RequestMapping处理的URL-->	
+	<mvc:default-servlet-handler/>
+	<!-- 定义无需Controller的url<->view直接映射 -->
+	<mvc:view-controller path="/" view-name="../index"/><!-- 默认首页 -->
+
+	<!-- 配置JSP视图解析器 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="order" value="10"></property>
+        <property name="prefix" value="/WEB-INF/views/"></property>
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+    
+    <!-- 自定义拦截链配置 ,可用于日志/特殊权限控制-->
+    <mvc:interceptors>
+    	<!-- 日志拦截器 -->
+        <mvc:interceptor>
+        	<!-- 拦截以下请求路径(可配置多项) -->
+            <mvc:mapping path="/*/**"/> <!-- 包含 -->
+            <mvc:exclude-mapping path="/static/**"/> <!-- 排除 -->
+            <bean class="com.bid.sys.interceptor.LogInterceptor">
+	            <!-- 日志记录入库开关 -->
+	            <property name="recordLog">
+	            	<value>true</value>
+	            </property> 
+	            <!-- 路径过滤类型：0：默认全部记录；1：只有filterPath下包含的路径才记录；2：与类型1相反(排除) -->
+	            <property name="pathFilterType">
+	            	<value>0</value>
+	            </property> 
+	            <property name="filterPath">  
+		            <list>
+                        <value>/sys/login</value>
+                        <value>/sysUser/editUserPwd</value>
+		            </list>
+	          	</property>
+	        </bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+    
+    <!-- 规避乱码等问题 -->
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="false">
+            <!-- 将StringHttpMessageConverter的默认编码设为UTF-8 -->
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg value="UTF-8"/>
+            </bean>
+            <ref bean="jacksonMessageConverter" />
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+    <!-- 避免IE执行AJAX时,返回JSON出现下载文件 -->
+    <bean id="jacksonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <property name="supportedMediaTypes">
+            <list>
+                <value>text/html;charset=UTF-8</value>
+                <value>application/json;charset=UTF-8</value>
+            </list>
+        </property>
+        <property name="objectMapper" ref="objectMapper" />
+    </bean>
+	<!-- 高性能JSON处理  -->
+    <bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper">
+        <property name="timeZone">
+            <bean class="java.util.TimeZone" factory-method="getTimeZone" >
+                <constructor-arg value="GMT+08"/>
+            </bean>
+        </property>
+        <property name="dateFormat">
+            <bean class="java.text.SimpleDateFormat">
+                <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss"/>
+            </bean>
+        </property>
+    </bean>
+    
+    <!-- 配置多文件上传 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding">
+			<value>UTF-8</value>
+		</property>
+		<property name="maxUploadSize">
+			<!-- 上传文件大小限制为31M，31*1024*1024 -->
+			<value>32505856</value>
+		</property>
+		<property name="maxInMemorySize">
+			<value>4096</value>
+		</property>
+	</bean>
+	
+    <!-- 引用配置properties -->
+	<context:property-placeholder ignore-unresolvable="true" location="classpath*:*.properties" />
+</beans>

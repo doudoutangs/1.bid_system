@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bid.sys.mapper.SysSequenceMapper">
+    <resultMap id="BaseResultMap" type="com.bid.sys.model.SysSequence">
+        <id column="seq_code" property="seqCode" jdbcType="VARCHAR"/>
+        <result column="current_seq" property="currentSeq" jdbcType="INTEGER"/>
+        <result column="min_length" property="minLength" jdbcType="INTEGER"/>
+        <result column="fix_start" property="fixStart" jdbcType="VARCHAR"/>
+        <result column="fix_end" property="fixEnd" jdbcType="VARCHAR"/>
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="sysSeqVoResultMap" type="com.bid.sys.model.SysSequence" extends="BaseResultMap">
+    </resultMap>
+    <sql id="Base_Column_List">
+      seq_code, current_seq, min_length, fix_start, fix_end, create_date, description
+    </sql>
+
+    <!-- 查询序列列表 -->
+    <select id="findSeqPageCondition" resultMap="sysSeqVoResultMap" parameterType="PageInfo">
+        SELECT Base_Column_List
+        from
+        sys_sequence
+        <where>
+            <if test=" condition.seqCode != null">
+                and seq_code = #{condition.seqCode,jdbcType=VARCHAR},
+            </if>
+            <if test=" condition.description != null ">
+                and description = CONCAT('%','${condition.description}','%' )
+            </if>
+        </where>
+        <if test="sort != null and sort != ''">
+            order by ${sort} ${order}
+        </if>
+    </select>
+
+    <!-- 更新序列 	-->
+    <update id="updateCurrentSeq">
+    update sys_sequence 
+    	set current_seq = #{newSeq,jdbcType=INTEGER} 
+    	where seq_code = #{seqCode,jdbcType=VARCHAR} and current_seq = #{currentSeq,jdbcType=INTEGER}
+    </update>
+
+</mapper>

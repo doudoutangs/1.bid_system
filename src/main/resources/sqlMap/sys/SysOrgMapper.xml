@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bid.sys.mapper.SysOrgMapper">
+    <resultMap id="BaseResultMap" type="com.bid.sys.model.SysOrg">
+        <id column="org_id" property="orgId" jdbcType="VARCHAR"/>
+        <result column="org_pid" property="orgPid" jdbcType="VARCHAR"/>
+        <result column="org_name" property="orgName" jdbcType="VARCHAR"/>
+        <result column="org_address" property="orgAddress" jdbcType="VARCHAR"/>
+        <result column="org_status" property="orgStatus" jdbcType="VARCHAR"/>
+        <result column="org_type" property="orgType" jdbcType="VARCHAR"/>
+        <result column="org_level" property="orgLevel" jdbcType="VARCHAR"/>
+        <result column="icon" property="icon" jdbcType="VARCHAR"/>
+        <result column="org_seq" property="orgSeq" jdbcType="INTEGER"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="field_1" property="field1" jdbcType="VARCHAR"/>
+        <result column="field_2" property="field2" jdbcType="VARCHAR"/>
+        <result column="field_3" property="field3" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="sysOrgVoResultMap" extends="BaseResultMap" type="com.bid.sys.model.result.SysOrgVo">
+        <result column="count_all_child" property="countAllChild" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        org_id, org_pid, org_name, org_address, org_status, org_type, org_level, icon, org_seq,
+        description, field_1, field_2, field_3
+    </sql>
+    <sql id="Base_Column_List_Alias">
+        so.org_id, so.org_pid, so.org_name, so.org_address, so.org_status, so.org_type, so.org_level, so.icon, so.org_seq,
+        so.description, so.field_1, so.field_2, so.field_3
+    </sql>
+
+    <!-- 机构列表查询  -->
+    <select id="findAllOrgVo" resultMap="sysOrgVoResultMap">
+        select COUNT(p_so.org_id) count_all_child,
+        <include refid="Base_Column_List_Alias"/>
+        from sys_org so
+        LEFT JOIN sys_org p_so ON p_so.org_pid = so.org_id
+        GROUP BY so.org_id
+        order by so.org_seq
+    </select>
+
+    <!-- 查询所有部门 -->
+    <select id="findAllOrg" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_org
+    </select>
+
+</mapper>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bid.tender.mapper.NoticeMapper">
+    <resultMap id="BaseResultMap" type="com.bid.tender.model.Notice">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="notice_date" property="noticeDate" jdbcType="VARCHAR"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="file_id" property="fileId" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="tender_date" property="tenderDate" jdbcType="VARCHAR"/>
+        <result column="bad_date" property="badDate" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="amount" property="amount" jdbcType="VARCHAR"/>
+        <result column="del_flag" property="delFlag" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, user_id, notice_date, title, content, file_id, type, del_flag, tender_date,bad_date,status,amount,create_time, update_time
+  </sql>
+    <!-- 查询指定用户信息  -->
+    <select id="findPageCondition" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from b_notice
+        <where>
+            <if test="condition.status != null and condition.status != ''">
+                and status ='${condition.status}'
+            </if>
+            <if test="condition.type != null and condition.type != ''">
+                and status ='${condition.type}'
+            </if>
+            <if test=" condition.title != null and condition.title != ''">
+                and title like CONCAT('%','${condition.title}','%' )
+            </if>
+        </where>
+        <if test="pageInfo.sort != null and pageInfo.sort != ''">
+            order by ${pageInfo.sort} ${pageInfo.order}
+        </if>
+    </select>
+    <insert id="add" parameterType="com.bid.tender.model.Notice">
+        insert into b_notice
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="noticeDate != null">
+                notice_date,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="fileId != null">
+                file_id,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="delFlag != null">
+                del_flag,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="noticeDate != null">
+                #{noticeDate,jdbcType=VARCHAR},
+            </if>
+            <if test="title != null">
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="fileId != null">
+                #{fileId,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="delFlag != null">
+                #{delFlag,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+</mapper>
