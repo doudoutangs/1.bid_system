@@ -6,7 +6,6 @@ import com.bid.common.web.PageInfo;
 import com.bid.common.web.controller.BaseController;
 import com.bid.tender.model.FileManage;
 import com.bid.tender.service.FileService;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -50,7 +49,7 @@ public class FileController extends BaseController {
         return "file/files";
     }
 
-    @RequiresPermissions("tender:file:view")
+    //    @RequiresPermissions("tender:file:view")
     @RequestMapping(value = "/dataGrid/json", method = RequestMethod.POST)
     @ResponseBody
 
@@ -67,7 +66,7 @@ public class FileController extends BaseController {
      * @param files
      * @return
      */
-    @RequiresPermissions("tender:file:add")
+//    @RequiresPermissions("tender:file:add")
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
     public Object upload(@RequestParam(value = "files", required = false) CommonsMultipartFile[] files,
@@ -120,7 +119,7 @@ public class FileController extends BaseController {
 
     }
 
-    @RequiresPermissions("tender:file:download")
+    //    @RequiresPermissions("tender:file:download")
     @RequestMapping(value = "/download", method = RequestMethod.GET)
     public ResponseEntity<byte[]> download(HttpServletResponse response, HttpServletRequest request, String fileId) {
         FileManage fileBean = fileService.selectByKey(fileId);
@@ -133,8 +132,9 @@ public class FileController extends BaseController {
                 // 附件形式
                 headers.setContentDispositionFormData("attachment",
                         URLEncoder.encode(fileBean.getFileName(), "UTF-8"));
-                return new ResponseEntity<byte[]>(Files.readAllBytes(Paths
-                        .get(abstFilePath)), headers, HttpStatus.OK);
+                byte[] bytes = Files.readAllBytes(Paths.get(abstFilePath));
+                ResponseEntity<byte[]> responseEntity = new ResponseEntity<byte[]>(bytes, headers, HttpStatus.OK);
+                return responseEntity;
             } catch (IOException e) {
                 return new ResponseEntity<byte[]>(null, headers,
                         HttpStatus.NOT_FOUND);
@@ -145,13 +145,14 @@ public class FileController extends BaseController {
         }
     }
 
+
     /**
      * 删除附件
      *
      * @param id
      * @return
      */
-    @RequiresPermissions("tender:file:del")
+//    @RequiresPermissions("tender:file:del")
     @RequestMapping(value = "/delete")
     @ResponseBody
     public Object delete(String id) {

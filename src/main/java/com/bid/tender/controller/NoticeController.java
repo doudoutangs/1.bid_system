@@ -88,6 +88,11 @@ public class NoticeController extends BaseController {
         notice.setDelFlag("0");
         notice.setNoticeDate(DateUtils.getDate());
         int result = noticeService.save(notice);
+        String industryType = notice.getIndustryType();
+        Double amount = Double.parseDouble(notice.getAmount());
+        if(industryType.equals("2")&& amount>1000000){
+            return resultFail("招标类型为商品时，招标金额不得大于100万");
+        }
         if (result == 1) {
             return resultSuccess("添加成功！");
         } else {

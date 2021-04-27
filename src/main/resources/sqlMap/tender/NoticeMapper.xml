@@ -14,11 +14,12 @@
         <result column="status" property="status" jdbcType="VARCHAR"/>
         <result column="amount" property="amount" jdbcType="VARCHAR"/>
         <result column="del_flag" property="delFlag" jdbcType="VARCHAR"/>
+        <result column="industry_type" property="industryType" jdbcType="VARCHAR"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, user_id, notice_date, title, content, file_id, type, del_flag, tender_date,bad_date,status,amount,create_time, update_time
+    id, user_id, notice_date, title, content, file_id, type, del_flag, tender_date,bad_date,status,industry_type,amount,create_time, update_time
   </sql>
     <!-- 查询指定用户信息  -->
     <select id="findPageCondition" resultMap="BaseResultMap">
@@ -64,6 +65,10 @@
             <if test="delFlag != null">
                 del_flag,
             </if>
+            <if test="industryType != null">
+                industry_type,
+            </if>
+
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="userId != null">
@@ -87,6 +92,10 @@
             <if test="delFlag != null">
                 #{delFlag,jdbcType=VARCHAR},
             </if>
+            <if test="industryType != null">
+                #{industryType,jdbcType=VARCHAR},
+            </if>
+
         </trim>
     </insert>
 </mapper>

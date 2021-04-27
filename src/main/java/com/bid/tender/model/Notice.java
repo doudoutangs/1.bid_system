@@ -29,6 +29,10 @@ public class Notice implements Serializable {
     private String delFlag;
     private String amount;
     /**
+     * 行业类型
+     */
+    private String industryType;
+    /**
      * 招标状态：0-投标中；1-评标中；2-招标结束
      */
     private String status;
@@ -38,6 +42,14 @@ public class Notice implements Serializable {
     private Date updateTime;
 
     private static final long serialVersionUID = 1L;
+
+    public String getIndustryType() {
+        return industryType;
+    }
+
+    public void setIndustryType(String industryType) {
+        this.industryType = industryType;
+    }
 
     public String getAmount() {
         return amount;

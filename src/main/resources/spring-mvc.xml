@@ -62,6 +62,8 @@
     <!-- 规避乱码等问题 -->
     <mvc:annotation-driven>
         <mvc:message-converters register-defaults="false">
+            <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
+
             <!-- 将StringHttpMessageConverter的默认编码设为UTF-8 -->
             <bean class="org.springframework.http.converter.StringHttpMessageConverter">
                 <constructor-arg value="UTF-8"/>
@@ -70,11 +72,13 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
     <!-- 避免IE执行AJAX时,返回JSON出现下载文件 -->
+
     <bean id="jacksonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
         <property name="supportedMediaTypes">
             <list>
                 <value>text/html;charset=UTF-8</value>
                 <value>application/json;charset=UTF-8</value>
+<!--                <value>application/octet-stream</value>-->
             </list>
         </property>
         <property name="objectMapper" ref="objectMapper" />

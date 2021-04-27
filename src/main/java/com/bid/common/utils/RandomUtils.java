@@ -10,7 +10,7 @@ import java.util.UUID;
 /**
  * @author Administrator
  * @version 1.0
- * @Description TODO
+ * @Description
  */
 public class RandomUtils {
     /**
