@@ -1,4 +1,4 @@
-# 1/招投标管理系统
+# 1.招投标管理系统
 
 
 ## 一、系统介绍
@@ -121,7 +121,7 @@
 
 ## 六、说明
 0. QQ:553039957
-1. gitcode主页： https://gitcode.com/user/tbb414 (推荐)
+1. gitcode主页： https://gitcode.com/user/tbb414 (国内推荐，速度快)
 2. github主页：https://github.com/doudoutangs
 ## 七、其他项目
 1. [招投标管理系统](https://gitcode.com/tbb414/bid_system)
