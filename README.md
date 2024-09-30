@@ -22,74 +22,74 @@
 - 评标专员（pby/pby）：评标员账号由管理员分配，可以对已经结束投标的活动进行评标
 ## 二、角色运行图
 ### 管理员
-![管理员](https://raw.githubusercontent.com/doudoutangs/bid_system/2e3df0f26d8a405936ed0673b5a367339ebb9631/%E6%8B%9B%E6%8A%95%E6%A0%87%E7%B3%BB%E7%BB%9F/r-1-%E7%AE%A1%E7%90%86%E5%91%98.png)
+![管理员](运行图/r-1-%E7%AE%A1%E7%90%86%E5%91%98.png)
 ### 招标专员
-![招标专员](https://raw.githubusercontent.com/doudoutangs/bid_system/2e3df0f26d8a405936ed0673b5a367339ebb9631/%E6%8B%9B%E6%8A%95%E6%A0%87%E7%B3%BB%E7%BB%9F/r-2-%E6%8B%9B%E6%A0%87%E5%91%98.png)
+![招标专员](运行图/r-2-%E6%8B%9B%E6%A0%87%E5%91%98.png)
 ### 投标专员
-![投标专员](https://raw.githubusercontent.com/doudoutangs/bid_system/2e3df0f26d8a405936ed0673b5a367339ebb9631/%E6%8B%9B%E6%8A%95%E6%A0%87%E7%B3%BB%E7%BB%9F/r-3-%E6%8A%95%E6%A0%87%E5%91%98.png)
+![投标专员](运行图/r-3-%E6%8A%95%E6%A0%87%E5%91%98.png)
 ### 评标专员
-![评标专员](https://raw.githubusercontent.com/doudoutangs/bid_system/2e3df0f26d8a405936ed0673b5a367339ebb9631/%E6%8B%9B%E6%8A%95%E6%A0%87%E7%B3%BB%E7%BB%9F/r-4-%E8%AF%84%E6%A0%87%E5%91%98.png)
+![评标专员](运行图/r-4-%E8%AF%84%E6%A0%87%E5%91%98.png)
 
 ## 三、所有功能介绍
 ### 0.登录
 - 登录地址：http://localhost:8080/bid/admin/login
 - 账号密码：admin/admin
 
-![登录](https://raw.githubusercontent.com/doudoutangs/bid_system/2e3df0f26d8a405936ed0673b5a367339ebb9631/%E6%8B%9B%E6%8A%95%E6%A0%87%E7%B3%BB%E7%BB%9F/0-1-%E7%99%BB%E5%BD%95.png)
+![登录](运行图/0-1-%E7%99%BB%E5%BD%95.png)
 #### 首页
-![首页](https://raw.githubusercontent.com/doudoutangs/bid_system/2e3df0f26d8a405936ed0673b5a367339ebb9631/%E6%8B%9B%E6%8A%95%E6%A0%87%E7%B3%BB%E7%BB%9F/0-2-%E9%A6%96%E9%A1%B5.png)
+![首页](运行图/0-2-%E9%A6%96%E9%A1%B5.png)
 #### 修改密码
-![修改密码](https://raw.githubusercontent.com/doudoutangs/bid_system/2e3df0f26d8a405936ed0673b5a367339ebb9631/%E6%8B%9B%E6%8A%95%E6%A0%87%E7%B3%BB%E7%BB%9F/0-4-%E4%BF%AE%E6%94%B9%E5%AF%86%E7%A0%81.png)
+![修改密码](运行图/0-4-%E4%BF%AE%E6%94%B9%E5%AF%86%E7%A0%81.png)
 #### 修改主题
-![修改主题](https://raw.githubusercontent.com/doudoutangs/bid_system/2e3df0f26d8a405936ed0673b5a367339ebb9631/%E6%8B%9B%E6%8A%95%E6%A0%87%E7%B3%BB%E7%BB%9F/0-5-%E4%BF%AE%E6%94%B9%E4%B8%BB%E9%A2%98.png)
+![修改主题](运行图/0-5-%E4%BF%AE%E6%94%B9%E4%B8%BB%E9%A2%98.png)
 
 ### 1.公告管理
 招标员根据项目需要发布招标公告信息。
-![公告管理-列表](https://raw.githubusercontent.com/doudoutangs/bid_system/2e3df0f26d8a405936ed0673b5a367339ebb9631/%E6%8B%9B%E6%8A%95%E6%A0%87%E7%B3%BB%E7%BB%9F/1-1-%E5%85%AC%E5%91%8A-%E5%88%97%E8%A1%A8.png)
-![公告管理-增加](https://raw.githubusercontent.com/doudoutangs/bid_system/2e3df0f26d8a405936ed0673b5a367339ebb9631/%E6%8B%9B%E6%8A%95%E6%A0%87%E7%B3%BB%E7%BB%9F/1-1-%E5%85%AC%E5%91%8A-%E5%A2%9E%E5%8A%A0.png)
+![公告管理-列表](运行图/1-1-%E5%85%AC%E5%91%8A-%E5%88%97%E8%A1%A8.png)
+![公告管理-增加](运行图/1-1-%E5%85%AC%E5%91%8A-%E5%A2%9E%E5%8A%A0.png)
 
 ### 2.投标管理
 投标员可查看系统目前所有招标信息，并对自己感兴趣的招标活动进行投标
-![投标管理-列表](https://raw.githubusercontent.com/doudoutangs/bid_system/2e3df0f26d8a405936ed0673b5a367339ebb9631/%E6%8B%9B%E6%8A%95%E6%A0%87%E7%B3%BB%E7%BB%9F/2-1-%E6%8A%95%E6%A0%87-%E5%88%97%E8%A1%A8.png)
-![投标管理-增加](https://raw.githubusercontent.com/doudoutangs/bid_system/2e3df0f26d8a405936ed0673b5a367339ebb9631/%E6%8B%9B%E6%8A%95%E6%A0%87%E7%B3%BB%E7%BB%9F/2-1-%E6%8A%95%E6%A0%87-%E7%BC%96%E8%BE%91.png)
+![投标管理-列表](运行图/2-1-%E6%8A%95%E6%A0%87-%E5%88%97%E8%A1%A8.png)
+![投标管理-增加](运行图/2-1-%E6%8A%95%E6%A0%87-%E7%BC%96%E8%BE%91.png)
 
 ### 3.评标管理
 评标员对分配给自己的招标活动进行评标
-![评标管理-列表](https://raw.githubusercontent.com/doudoutangs/bid_system/2e3df0f26d8a405936ed0673b5a367339ebb9631/%E6%8B%9B%E6%8A%95%E6%A0%87%E7%B3%BB%E7%BB%9F/3-1-%E8%AF%84%E6%A0%87-%E5%88%97%E8%A1%A8%20.png)
-![评标管理-增加](https://raw.githubusercontent.com/doudoutangs/bid_system/2e3df0f26d8a405936ed0673b5a367339ebb9631/%E6%8B%9B%E6%8A%95%E6%A0%87%E7%B3%BB%E7%BB%9F/3-1-%E8%AF%84%E6%A0%87-%E7%BC%96%E8%BE%91.png)
+![评标管理-列表](运行图/3-1-%E8%AF%84%E6%A0%87-%E5%88%97%E8%A1%A8%20.png)
+![评标管理-增加](运行图/3-1-%E8%AF%84%E6%A0%87-%E7%BC%96%E8%BE%91.png)
 
 ### 4.系统管理
 包括两个子模块：菜单管理和字典管理
 #### （1）菜单管理
 管理员对系统的菜单按钮及对应图标等信息进行管理
-![菜单管理-列表](https://raw.githubusercontent.com/doudoutangs/bid_system/2e3df0f26d8a405936ed0673b5a367339ebb9631/%E6%8B%9B%E6%8A%95%E6%A0%87%E7%B3%BB%E7%BB%9F/5-2-%E8%8F%9C%E5%8D%95%E7%AE%A1%E7%90%86-%E5%88%97%E8%A1%A8.png)
-![菜单管理-增加](https://raw.githubusercontent.com/doudoutangs/bid_system/2e3df0f26d8a405936ed0673b5a367339ebb9631/%E6%8B%9B%E6%8A%95%E6%A0%87%E7%B3%BB%E7%BB%9F/5-2-%E8%8F%9C%E5%8D%95%E7%AE%A1%E7%90%86-%E5%A2%9E%E5%8A%A0.png)
+![菜单管理-列表](运行图/5-2-%E8%8F%9C%E5%8D%95%E7%AE%A1%E7%90%86-%E5%88%97%E8%A1%A8.png)
+![菜单管理-增加](运行图/5-2-%E8%8F%9C%E5%8D%95%E7%AE%A1%E7%90%86-%E5%A2%9E%E5%8A%A0.png)
 
 #### （2）字典管理
 管理员对系统常量进行管理
-![字典管理-列表](https://raw.githubusercontent.com/doudoutangs/bid_system/2e3df0f26d8a405936ed0673b5a367339ebb9631/%E6%8B%9B%E6%8A%95%E6%A0%87%E7%B3%BB%E7%BB%9F/5-1-%E5%AD%97%E5%85%B8%E7%AE%A1%E7%90%86-%E5%88%97%E8%A1%A8.png)
-![字典管理-增加](https://raw.githubusercontent.com/doudoutangs/bid_system/2e3df0f26d8a405936ed0673b5a367339ebb9631/%E6%8B%9B%E6%8A%95%E6%A0%87%E7%B3%BB%E7%BB%9F/5-1-%E5%AD%97%E5%85%B8%E7%AE%A1%E7%90%86-%E5%A2%9E%E5%8A%A0.png)
+![字典管理-列表](运行图/5-1-%E5%AD%97%E5%85%B8%E7%AE%A1%E7%90%86-%E5%88%97%E8%A1%A8.png)
+![字典管理-增加](运行图/5-1-%E5%AD%97%E5%85%B8%E7%AE%A1%E7%90%86-%E5%A2%9E%E5%8A%A0.png)
 
 ### 5.系统维护
 系统管理子模块:用户管理，机构管理，角色管理，日志查询。
 #### （1）用户管理
 管理员对系统的招标员，评标员，投标员进行动态管理
-![用户管理-列表](https://raw.githubusercontent.com/doudoutangs/bid_system/2e3df0f26d8a405936ed0673b5a367339ebb9631/%E6%8B%9B%E6%8A%95%E6%A0%87%E7%B3%BB%E7%BB%9F/6-1-%E7%94%A8%E6%88%B7-%E5%88%97%E8%A1%A8.png)
-![用户管理-增加](https://raw.githubusercontent.com/doudoutangs/bid_system/2e3df0f26d8a405936ed0673b5a367339ebb9631/%E6%8B%9B%E6%8A%95%E6%A0%87%E7%B3%BB%E7%BB%9F/6-1-%E7%94%A8%E6%88%B7-%E5%A2%9E%E5%8A%A0.png)
+![用户管理-列表](运行图/6-1-%E7%94%A8%E6%88%B7-%E5%88%97%E8%A1%A8.png)
+![用户管理-增加](运行图/6-1-%E7%94%A8%E6%88%B7-%E5%A2%9E%E5%8A%A0.png)
 
 #### （2）角色管理
 对角色进行管理，可新增角色，也可变更已有角色所管理的菜单及按钮
-![角色管理-列表](https://raw.githubusercontent.com/doudoutangs/bid_system/2e3df0f26d8a405936ed0673b5a367339ebb9631/%E6%8B%9B%E6%8A%95%E6%A0%87%E7%B3%BB%E7%BB%9F/6-2-%E8%A7%92%E8%89%B2-%E5%88%97%E8%A1%A8.png)
-![角色管理-增加](https://raw.githubusercontent.com/doudoutangs/bid_system/2e3df0f26d8a405936ed0673b5a367339ebb9631/%E6%8B%9B%E6%8A%95%E6%A0%87%E7%B3%BB%E7%BB%9F/6-2-%E8%A7%92%E8%89%B2-%E5%A2%9E%E5%8A%A0.png)
+![角色管理-列表](运行图/6-2-%E8%A7%92%E8%89%B2-%E5%88%97%E8%A1%A8.png)
+![角色管理-增加](运行图/6-2-%E8%A7%92%E8%89%B2-%E5%A2%9E%E5%8A%A0.png)
 
 #### （3）机构管理
 管理员对系统中新增或有表更的机构进行信息维护
-![机构管理-列表](https://raw.githubusercontent.com/doudoutangs/bid_system/2e3df0f26d8a405936ed0673b5a367339ebb9631/%E6%8B%9B%E6%8A%95%E6%A0%87%E7%B3%BB%E7%BB%9F/6-3-%E6%9C%BA%E6%9E%84-%E5%88%97%E8%A1%A8.png)
-![机构管理-增加](https://raw.githubusercontent.com/doudoutangs/bid_system/2e3df0f26d8a405936ed0673b5a367339ebb9631/%E6%8B%9B%E6%8A%95%E6%A0%87%E7%B3%BB%E7%BB%9F/6-3-%E6%9C%BA%E6%9E%84-%E5%A2%9E%E5%8A%A0.png)
+![机构管理-列表](运行图/6-3-%E6%9C%BA%E6%9E%84-%E5%88%97%E8%A1%A8.png)
+![机构管理-增加](运行图/6-3-%E6%9C%BA%E6%9E%84-%E5%A2%9E%E5%8A%A0.png)
 
 #### （4）日志查询
 管理员查看系统日志，发现系统异常上报运维人员
-![日志查询-列表](https://raw.githubusercontent.com/doudoutangs/bid_system/2e3df0f26d8a405936ed0673b5a367339ebb9631/%E6%8B%9B%E6%8A%95%E6%A0%87%E7%B3%BB%E7%BB%9F/6-4-%E6%97%A5%E5%BF%97-%E5%88%97%E8%A1%A8.png)
+![日志查询-列表](运行图/6-4-%E6%97%A5%E5%BF%97-%E5%88%97%E8%A1%A8.png)
 
 ## 四、软件架构
 
@@ -111,10 +111,10 @@
 1. 导入mysql脚本,数据库名称：bid_system
 2. 修改数据库配置：
 
-![修改数据](https://raw.githubusercontent.com/doudoutangs/bid_system/2e3df0f26d8a405936ed0673b5a367339ebb9631/%E6%8B%9B%E6%8A%95%E6%A0%87%E7%B3%BB%E7%BB%9F/0-6-%E6%95%B0%E6%8D%AE%E5%BA%93%E9%85%8D%E7%BD%AE.png)
+![修改数据](运行图/0-6-%E6%95%B0%E6%8D%AE%E5%BA%93%E9%85%8D%E7%BD%AE.png)
 3. 通过tomcat启动项目
 
-![启动项目](https://raw.githubusercontent.com/doudoutangs/bid_system/2e3df0f26d8a405936ed0673b5a367339ebb9631/%E6%8B%9B%E6%8A%95%E6%A0%87%E7%B3%BB%E7%BB%9F/0-7-tomcat%E9%85%8D%E7%BD%AE.png)
+![启动项目](运行图/0-7-tomcat%E9%85%8D%E7%BD%AE.png)
 4. 访问：http://localhost:8080/bid/admin/login（账号admin/admin）
 
 
