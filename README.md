@@ -1,6 +1,5 @@
 # 1.招投标管理系统
 
-
 ## 一、系统介绍
 招投标管理系统是一个简化的招投标系统，为企业进行招投标活动提供信息化的支持，优化招投标流程，减轻招投标管理人员工作负担，提高工作效力发挥很大作用。
 系统分为五大模块：公告管理，投标管理，评标管理，系统管理，系统维护。
@@ -118,17 +117,16 @@
 4. 访问：http://localhost:8080/bid/admin/login（账号admin/admin）
 
 
-
 ## 六、源码地址
 0. QQ:553039957
-1. gitee（码云）主页： https://gitee.com/woshimalong
-2. gitcode主页： https://gitcode.com/user/tbb414
-3. github主页：https://github.com/doudoutangs
+1. gitcode主页： https://gitcode.com/user/tbb414/repos
+2. github主页：https://github.com/doudoutangs
+
 ## 七、其他项目
-1. [招投标管理系统](https://gitee.com/woshimalong/tender_system)
-2. [办公管理系统](https://gitee.com/woshimalong/office_system)
-3. [薪资管理系统](https://gitee.com/woshimalong/wages_system)
-4. [人事管理系统](https://gitee.com/woshimalong/hr_system)
-5. [绩效考核系统](https://gitee.com/woshimalong/kpi_system)
-6. [就业管理系统](https://gitee.com/woshimalong/job_system)
-7. [图书管理系统](https://gitee.com/woshimalong/library_system)
+1. [招投标管理系统](https://gitcode.com/tbb414/tender_system)
+2. [办公管理系统](https://gitcode.com/tbb414/office_system)
+3. [薪资管理系统](https://gitcode.com/tbb414/wages_system)
+4. [人事管理系统](https://gitcode.com/tbb414/hr_system)
+5. [绩效考核系统](https://gitcode.com/tbb414/kpi_system)
+6. [就业管理系统](https://gitcode.com/tbb414/job_system)
+7. [图书管理系统](https://gitcode.com/tbb414/library_system)

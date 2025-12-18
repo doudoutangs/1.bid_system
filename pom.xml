@@ -4,7 +4,7 @@
     <groupId>com.bid</groupId>
     <artifactId>bid</artifactId>
     <packaging>war</packaging>
-    <version>1.0</version>
+    <version>1.0.0</version>
     <name>bid Maven Webapp</name>
     <url>http://maven.apache.org</url>
 
@@ -334,7 +334,7 @@
     </dependencies>
 
     <build>
-        <finalName>bid</finalName>
+        <finalName>${project.artifactId}</finalName>
         <defaultGoal>compile</defaultGoal>
         <plugins>
             <!-- compiler插件, 设定JDK版本 -->
